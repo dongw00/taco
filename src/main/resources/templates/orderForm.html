@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>타코 클라우드</title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+  <h1>주문하기</h1>
+  <a id="another" th:href="@{/design}">다른 타코 선택하기</a><br/>
+
+  <div th:if="${#fields.hasErrors()}">
+    <span class="validationError">주문서를 다시 입력해주세요.</span>
+  </div>
+
+  <h2>주문서</h2>
+  <label for="name">이름: </label>
+  <input id="name" th:field="*{name}" type="text"/>
+  <span class="validationError"
+        th:errors="*{name}"
+        th:if="${#fields.hasErrors('name')}"></span>
+  <br/>
+
+  <label for="address">배송지 주소: </label>
+  <input id="address" th:field="*{address}" type="text"/>
+  <span class="validationError"
+        th:errors="*{address}"
+        th:if="${#fields.hasErrors('address')}"></span>
+  <br/>
+
+  <h3>결제정보</h3>
+  <label for="cardNumber">카드번호: </label>
+  <input id="cardNumber" th:field="*{cardNumber}" type="text"/>
+  <span class="validationError"
+        th:errors="*{cardNumber}"
+        th:if="${#fields.hasErrors('cardNumber')}">카드번호 오류</span>
+  <br/>
+
+  <label for="cvc">CVC: </label>
+  <input id="cvc" th:field="*{cvc}" type="text"/>
+  <span class="validationError"
+        th:errors="*{cvc}"
+        th:if="${#fields.hasErrors('cvc')}">CVC 오류</span>
+  <br/>
+  <input type="submit" value="Submit order"/>
+</form>
+</body>
+</html>
